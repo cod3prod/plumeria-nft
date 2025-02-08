@@ -1,19 +1,45 @@
-client
-deployments
+# Dependencies
 node_modules
-.env
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
 # Hardhat files
 /cache
 /artifacts
-
-# TypeChain files
 /typechain
 /typechain-types
-
-# solidity-coverage files
 /coverage
 /coverage.json
+#chain-31337
+/ignition/deployments/
 
-# Hardhat Ignition default folder for deployments against a local node
-ignition/deployments/chain-31337
+# Next.js files
+client/.next/
+client/out/
+client/build
+
+# Environment files
+.env*
+.env.local
+res
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
