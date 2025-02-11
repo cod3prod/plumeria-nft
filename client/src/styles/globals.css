@@ -1,0 +1,21 @@
+:root {
+  --background: linear-gradient(to bottom right, #fff5f7, #ffffff);
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-optical-sizing: auto;
+}
+
+.headline {
+  @apply bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent;
+}
