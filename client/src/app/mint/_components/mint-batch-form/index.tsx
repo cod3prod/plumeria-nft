@@ -13,6 +13,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { wagmiContractConfig } from "@/configs/contracts";
+import { toast } from "react-toastify";
 
 type TokenState = {
   [key: number]: number;
@@ -35,7 +36,7 @@ export default function MintBatchForm() {
     contracts,
   });
 
-  const { data: totalSupplies, isError, isPending } = result;
+  const { data: totalSupplies, isPending } = result;
 
   const {
     data: hash,
@@ -48,10 +49,11 @@ export default function MintBatchForm() {
       hash,
     });
 
-  // error
   useEffect(() => {
-    if (error) console.error(error);
-  }, [isError]);
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
 
   useEffect(() => {
     setIsModalOpen(isConfirmed);

@@ -12,10 +12,10 @@ export default function TabSelector({
   setFormType: Dispatch<SetStateAction<SendFormType>>;
 }) {
   return (
-    <div className="flex p-1 space-x-1 bg-gray-200 rounded-t-lg">
+    <div className="grid grid-cols-3 p-1 gap-1 bg-gray-200 rounded-t-lg">
       <button
         className={twMerge(
-          "flex-1 py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
+          "py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
           formType === SendFormType.PREMIUM
             ? "bg-white text-gray-900 shadow"
             : "text-gray-500 hover:bg-gray-100",
@@ -27,7 +27,7 @@ export default function TabSelector({
       </button>
       <button
         className={twMerge(
-          "flex-1 py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
+          "py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
           formType === SendFormType.SINGLE
             ? "bg-white text-gray-900 shadow"
             : "text-gray-500 hover:bg-gray-100",
@@ -39,7 +39,7 @@ export default function TabSelector({
       </button>
       <button
         className={twMerge(
-          "flex-1 py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
+          "py-2 px-4 rounded-md text-sm font-medium cursor-pointer",
           formType === SendFormType.BATCH
             ? "bg-white text-gray-900 shadow"
             : "text-gray-500 hover:bg-gray-100",

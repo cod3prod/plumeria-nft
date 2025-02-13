@@ -10,6 +10,8 @@ import QueryProvider from "@/components/query-provider";
 import { cookieToInitialState } from "wagmi";
 import { getConfig } from "@/configs/wagmi-config";
 import { headers } from "next/headers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: {
@@ -47,6 +49,7 @@ export default async function RootLayout({
             <Header />
             <main className="min-h-screen">{children}</main>
             <Footer />
+            <ToastContainer position="top-left"/>
           </QueryProvider>
         </EthereumProvider>
 

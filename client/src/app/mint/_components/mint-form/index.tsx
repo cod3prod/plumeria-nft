@@ -6,7 +6,7 @@ import Button from "@/components/ui/button";
 import { twMerge } from "tailwind-merge";
 import Loader from "@/components/ui/loader";
 import ImagePreview from "./image-preview";
-import NumberStepper from "./number-stepper";
+import NumberStepper from "@/components/ui/number-stepper";
 import {
   type BaseError,
   useAccount,
@@ -16,6 +16,7 @@ import {
 import { wagmiContractConfig } from "@/configs/contracts";
 import TokenPrice from "./token-price";
 import TotalSupply from "./total-supply";
+import { toast } from "react-toastify";
 
 export default function MintForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,12 +26,10 @@ export default function MintForm() {
 
   const { address, chainId } = useAccount();
   const { data: hash, error, isPending, writeContract } = useWriteContract();
-  const {
-    isLoading: isConfirming,
-    isSuccess: isConfirmed,
-  } = useWaitForTransactionReceipt({
-    hash,
-  });
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
 
   useEffect(() => {
     setIsModalOpen(isConfirmed);
@@ -56,6 +55,12 @@ export default function MintForm() {
     });
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error.message);
+    }
+  }, [error]);
+
   if (!address) return null;
   const disable = tokenId === 0 || amount === 0 || isPending || isFull;
 
@@ -63,11 +68,6 @@ export default function MintForm() {
     <>
       <section className="w-full max-w-md mx-auto mb-20">
         <div className="bg-white rounded-lg shadow-xl p-8">
-          {error && (
-            <div>
-              Error: {(error as BaseError).shortMessage || error.message}
-            </div>
-          )}
           <ImagePreview tokenId={tokenId} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <TokenPrice />
@@ -110,7 +110,7 @@ export default function MintForm() {
         onClose={() => setIsModalOpen(false)}
         mintedItems={[{ tokenId: tokenId, amount: amount }]}
       />
-      {isPending || isConfirming && <Loader />}
+      {isPending || (isConfirming && <Loader />)}
     </>
   );
 }

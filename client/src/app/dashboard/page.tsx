@@ -6,18 +6,20 @@ import Loader from "@/components/ui/loader";
 import Progression from "./_components/progression";
 import { useAccount, useReadContract } from "wagmi";
 import { wagmiContractConfig } from "@/configs/contracts";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function Page() {
   const { address } = useAccount();
 
-  const { data, error, isPending } = useReadContract({
+  const { data, error, isPending, isError } = useReadContract({
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
   });
 
   const balances = (data || []) as BigInt[];
-  console.log("debug balances", balances);
+  // console.log("debug balances", balances);
   const temp = balances.filter((value) => {
     if (value) {
       return value;
@@ -26,6 +28,12 @@ export default function Page() {
 
   const progress =
     balances.length === 0 ? 0 : (temp.length / (balances.length - 1)) * 100;
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.message || "Error in contract call");
+    }
+  }, [error]);
 
   if (!address) return null;
 
