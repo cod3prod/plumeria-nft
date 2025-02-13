@@ -217,5 +217,46 @@ describe("Plumeria", function () {
     await expect(plumeria.connect(user).mint(16, 11)).to.be.revertedWith(
       "Invalid amount"
     );
+
+    it("trasnfer", async function () {
+      const { plumeria, publisher, user } = await loadFixture(
+        deployTokenFixture
+      );
+
+      for (let i = 1; i <= 16; i++) {
+        await plumeria.connect(publisher).mint(i, 1);
+        await plumeria
+          .connect(publisher)
+          .setApprovalForAll(plumeria.target, true);
+        await plumeria
+          .connect(publisher)
+          .safeTransferFrom(publisher.address, user.address, i, 1, "");
+        expect(await plumeria.totalSupply(i)).to.deep.equal(1);
+        expect(await plumeria.balanceOf(user.address, i)).to.deep.equal(1);
+      }
+    });
+
+    it("trasnfer batch", async function () {
+      const { plumeria, publisher, user } = await loadFixture(
+        deployTokenFixture
+      );
+
+      const tokenIds = [1,2,3,4,5];
+      const amounts = [10, 10, 10, 10, 10];
+      await plumeria
+        .connect(publisher)
+        .mintBatch(tokenIds,amounts );
+      await plumeria
+        .connect(publisher)
+        .setApprovalForAll(plumeria.target, true);
+      await plumeria
+        .connect(publisher)
+        .safeBatchTransferFrom(publisher.address, user.address, tokenIds, amounts, "");
+
+      tokenIds.forEach( async (id, index) => {
+        expect(await plumeria.balanceOf(user.address, id)).to.deep.equals(amounts[index]);
+        expect(await plumeria.totalSupply(id)).to.deep.equals(amounts[index]);
+      })
+    });
   });
 });
