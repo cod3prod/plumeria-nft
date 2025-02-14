@@ -22,14 +22,6 @@ export default function Page() {
 
   const balances = (data || []) as bigint[];
   // console.log("debug balances", balances);
-  const temp = balances.filter((value) => {
-    if (value) {
-      return value;
-    }
-  });
-
-  const progress =
-    balances.length === 0 ? 0 : (temp.length / (balances.length - 1)) * 100;
 
   useEffect(() => {
     if (error) {
@@ -44,7 +36,7 @@ export default function Page() {
       <DashboardHeader />
       <div className="w-full max-w-lg flex flex-col items-center">
         <HeaderTabs balances={balances} />
-        <Progression progress={progress} />
+        <Progression balances={balances} />
         <div className="w-full grid grid-cols-4 gap-4">
           {balances.map((el, idx) => {
             if (idx === 0) return;
