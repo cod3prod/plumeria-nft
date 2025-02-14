@@ -1,7 +1,7 @@
 import { FaRunning } from "react-icons/fa";
 import PremiumInfo from "./premium-info";
 
-export default function Progression({ balances }: { balances: bigint[] }) {
+export default function Progression({ balances }: { balances: number[] }) {
   const temp = balances.filter((value) => {
     if (value) {
       return value;

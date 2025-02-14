@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import UpgradeButton from "./upgrade-button";
 
-export default function HeaderTabs({ balances }: { balances: bigint[] }) {
+export default function HeaderTabs({ balances }: { balances: number[] }) {
   const [canUpgrade, setCanUpgrade] = useState(false);
   const router = useRouter();
 
@@ -16,7 +16,7 @@ export default function HeaderTabs({ balances }: { balances: bigint[] }) {
 
     let isUpgradeable = true;
     for (let i = 1; i < balances.length; i++) {
-      if (Number(balances[i]) === 0) {
+      if (balances[i] === 0) {
         isUpgradeable = false;
         break;
       }

@@ -2,12 +2,18 @@
 
 import Loader from "@/components/ui/loader";
 import { wagmiContractConfig } from "@/configs/contracts";
+import { setBalances } from "@/store/slices/balances-slice";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 
 export default function UpgradeButton({ canUpgrade }: { canUpgrade: boolean }) {
+  const dispatch = useDispatch();
+  const { balances: prevBalances } = useSelector(
+    (state: RootState) => state.balances
+  );
   const { data: hash, error, isPending, writeContract } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({ hash });
@@ -21,9 +27,12 @@ export default function UpgradeButton({ canUpgrade }: { canUpgrade: boolean }) {
   useEffect(() => {
     if (isConfirmed) {
       toast.success("Upgrade Completed!");
+      const newBalances = (prevBalances as number[]).map((balance, index) =>
+        index === 0 ? balance + 1 : balance - 1
+      );
+      dispatch(setBalances(newBalances));
     }
-  }, [isConfirmed]);
-
+  }, [isConfirmed, dispatch]);
 
   const handleUpgrade = () => {
     if (!canUpgrade) return;

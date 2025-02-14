@@ -6,13 +6,16 @@ import Loader from "@/components/ui/loader";
 import Progression from "./_components/progression";
 import { useAccount, useReadContract } from "wagmi";
 import { wagmiContractConfig } from "@/configs/contracts";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import HeaderTabs from "./_components/header-tabs";
+import { useDispatch, useSelector } from "react-redux";
+import { setBalances } from "@/store/slices/balances-slice";
 
 export default function Page() {
-
+  const dispatch = useDispatch();
   const { address } = useAccount();
+  const { balances } = useSelector((state: RootState) => state.balances);
 
   const { data, error, isPending } = useReadContract({
     ...wagmiContractConfig,
@@ -20,8 +23,11 @@ export default function Page() {
     args: [address],
   });
 
-  const balances = (data || []) as bigint[];
-  // console.log("debug balances", balances);
+  useEffect(() => {
+    const newBalances = (data || []) as bigint[];
+    const convertedBalances = newBalances.map(balance => Number(balance));
+    dispatch(setBalances(convertedBalances));
+  }, [dispatch, data]);
 
   useEffect(() => {
     if (error) {
@@ -38,7 +44,7 @@ export default function Page() {
         <HeaderTabs balances={balances} />
         <Progression balances={balances} />
         <div className="w-full grid grid-cols-4 gap-4">
-          {balances.map((el, idx) => {
+          {(balances as bigint[]).map((el, idx) => {
             if (idx === 0) return;
             return (
               <NftCard key={idx - 1} index={idx - 1} balance={Number(el)} />
