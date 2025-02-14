@@ -54,14 +54,14 @@ export default function SendTokens({
 
   useEffect(() => {
     if (error) {
-      // console.log("send-tokens debug", error);
+      console.log("send-tokens", error);
       toast.error("Error in contract call");
     }
   }, [error]);
 
   useEffect(()=>{
     if(isConfirmed){
-        toast.error("Transfer Completed!");
+        toast.success("Transfer Completed!");
     }
   },[isConfirmed])
 

@@ -13,7 +13,7 @@ export default function MintLayout({
 }>) {
   return (
     <>
-      <article className="flex flex-col justify-center items-center p-4">
+      <article className="flex flex-col w-full justify-center items-center">
         {children}
       </article>
       <Authenticated />

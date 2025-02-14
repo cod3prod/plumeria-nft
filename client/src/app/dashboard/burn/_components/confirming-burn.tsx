@@ -22,6 +22,7 @@ export default function ConfirmingBurn() {
 
   useEffect(() => {
     if (error) {
+      console.error("confirming burn", error);
       toast.error("Error in contract call");
     }
   }, [error]);

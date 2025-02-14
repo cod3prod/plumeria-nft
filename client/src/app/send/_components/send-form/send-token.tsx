@@ -31,7 +31,7 @@ export default function SendToken({
 
   useEffect(() => {
     if (error) {
-      // console.error("send-token debug", error);
+      console.error("send-token", error);
       toast.error("Error in contract call");
     }
   }, [error]);

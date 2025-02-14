@@ -20,6 +20,7 @@ export default function UpgradeButton({ canUpgrade }: { canUpgrade: boolean }) {
 
   useEffect(() => {
     if (error) {
+      console.error("upgrade", error);
       toast.error("Error in contract call");
     }
   }, [error]);

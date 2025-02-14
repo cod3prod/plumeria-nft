@@ -19,6 +19,9 @@ export default function TokenIdSelector({
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
+    query: {
+      enabled: !!address,
+    },
   });
 
   const balances = (data || []) as bigint[];

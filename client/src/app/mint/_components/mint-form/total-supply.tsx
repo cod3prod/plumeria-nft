@@ -24,6 +24,7 @@ export default function TotalSupply({
 
   useEffect(() => {
     if (error) {
+      console.error("total supply", error);
       toast.error("Error in contract call")
     };
 

@@ -18,6 +18,9 @@ export default function BatchTransfer() {
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
+    query: {
+      enabled: !!address,
+    },
   });
 
   const holdings = data
@@ -32,6 +35,7 @@ export default function BatchTransfer() {
 
   useEffect(() => {
     if(error) {
+      console.error("send batch", error);
       toast.error("Error in contract call");
     }
   }, [error]);

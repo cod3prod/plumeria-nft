@@ -18,6 +18,9 @@ export default function SendPremiumForm() {
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
+    query: {
+      enabled: !!address,
+    },
   });
   const balances = data
     ? (data as bigint[]).map((el: bigint) => Number(el))

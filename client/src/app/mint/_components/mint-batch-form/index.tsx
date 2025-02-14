@@ -51,6 +51,7 @@ export default function MintBatchForm() {
 
   useEffect(() => {
     if (error) {
+      console.error("mint batch", error);
       toast.error("Error in contract call");
     }
   }, [error]);

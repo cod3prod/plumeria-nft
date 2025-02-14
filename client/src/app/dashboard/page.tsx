@@ -21,16 +21,20 @@ export default function Page() {
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
+    query: {
+      enabled: !!address,
+    },
   });
 
   useEffect(() => {
     const newBalances = (data || []) as bigint[];
-    const convertedBalances = newBalances.map(balance => Number(balance));
+    const convertedBalances = newBalances.map((balance) => Number(balance));
     dispatch(setBalances(convertedBalances));
   }, [dispatch, data]);
 
   useEffect(() => {
     if (error) {
+      console.error("dashboard", error);
       toast.error("Error in contract call");
     }
   }, [error]);

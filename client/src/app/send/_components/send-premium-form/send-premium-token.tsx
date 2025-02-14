@@ -45,6 +45,7 @@ export default function SendPremiumToken({
 
   useEffect(() => {
     if (error) {
+      console.error("send premiium", error);
       toast.error("Error in contract call");
     }
   }, [error]);

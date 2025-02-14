@@ -19,6 +19,9 @@ export default function Page() {
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
+    query: {
+      enabled: !!address,
+    },
   })
 
   const holdings = data ? (data as bigint[]).map((el: bigint) => Number(el)) : Array(17).fill(0);
@@ -26,6 +29,7 @@ export default function Page() {
   console.log(holdings);
   useEffect(()=>{
     if(error) {
+      console.error("burn", error);
       toast.error("Error in contract call");
     }
   },[error])

@@ -56,6 +56,7 @@ export default function MintForm() {
 
   useEffect(() => {
     if (error) {
+      console.error("mint", error);
       toast.error("Error in contract call");
     }
   }, [error]);
