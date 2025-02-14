@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { FaEnvelope, FaGithub, FaGlobe } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaEthereum } from "react-icons/fa";
 
 const data = [
   {
     name: "GitHub",
-    href: "https://github.com/your-username",
+    href: "https://github.com/cod3prod/plumeria-nft",
     icon: <FaGithub className="h-6 w-6" />,
   },
   {
-    name: "Portfolio",
-    href: "https://cod3prod.vercel.app/",
-    icon: <FaGlobe className="h-6 w-6" />,
+    name: "Contract Address",
+    href: "https://sepolia.etherscan.io/address/0x8b1DC4514CD415de77abED59131941113ACADe0f",
+    icon: <FaEthereum className="h-6 w-6" />,
   },
   {
     name: "Email",
