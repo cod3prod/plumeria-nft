@@ -6,19 +6,21 @@ import Loader from "@/components/ui/loader";
 import Progression from "./_components/progression";
 import { useAccount, useReadContract } from "wagmi";
 import { wagmiContractConfig } from "@/configs/contracts";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { toast } from "react-toastify";
+import HeaderTabs from "./_components/header-tabs";
 
 export default function Page() {
+
   const { address } = useAccount();
 
-  const { data, error, isPending, isError } = useReadContract({
+  const { data, error, isPending } = useReadContract({
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
   });
 
-  const balances = (data || []) as BigInt[];
+  const balances = (data || []) as bigint[];
   // console.log("debug balances", balances);
   const temp = balances.filter((value) => {
     if (value) {
@@ -30,7 +32,7 @@ export default function Page() {
     balances.length === 0 ? 0 : (temp.length / (balances.length - 1)) * 100;
 
   useEffect(() => {
-    if (isError) {
+    if (error) {
       toast.error(error.message || "Error in contract call");
     }
   }, [error]);
@@ -41,6 +43,7 @@ export default function Page() {
     <>
       <DashboardHeader />
       <div className="w-full max-w-lg flex flex-col items-center">
+        <HeaderTabs balances={balances} />
         <Progression progress={progress} />
         <div className="w-full grid grid-cols-4 gap-4">
           {balances.map((el, idx) => {

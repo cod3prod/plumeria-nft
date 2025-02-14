@@ -8,7 +8,6 @@ import Loader from "@/components/ui/loader";
 import ImagePreview from "./image-preview";
 import NumberStepper from "@/components/ui/number-stepper";
 import {
-  type BaseError,
   useAccount,
   useWaitForTransactionReceipt,
   useWriteContract,

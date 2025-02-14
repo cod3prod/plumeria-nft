@@ -15,13 +15,13 @@ export default function TokenIdSelector({
   setAmount: Dispatch<SetStateAction<number>>;
 }) {
   const { address } = useAccount();
-  const { data, error, isPending } = useReadContract({
+  const { data } = useReadContract({
     ...wagmiContractConfig,
     functionName: "getBalances",
     args: [address],
   });
 
-  const balances = (data || []) as BigInt[];
+  const balances = (data || []) as bigint[];
 
   console.log("debug", balances);
   const holding  = balances ? Number(balances[tokenId]) : 0;

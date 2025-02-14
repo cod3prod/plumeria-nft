@@ -20,7 +20,7 @@ export default function SendPremiumForm() {
     args: [address],
   });
   const balances = data
-    ? (data as BigInt[]).map((el: BigInt) => Number(el))
+    ? (data as bigint[]).map((el: bigint) => Number(el))
     : [0];
 
   return (

@@ -12,6 +12,7 @@ import { getConfig } from "@/configs/wagmi-config";
 import { headers } from "next/headers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReduxProvider from "@/components/redux-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -46,10 +47,12 @@ export default async function RootLayout({
       <body className="relative w-full">
         <EthereumProvider initialState={initialState}>
           <QueryProvider>
-            <Header />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
-            <ToastContainer position="top-left"/>
+            <ReduxProvider>
+              <Header />
+              <main className="min-h-screen">{children}</main>
+              <Footer />
+            </ReduxProvider>
+            <ToastContainer position="top-left" />
           </QueryProvider>
         </EthereumProvider>
 

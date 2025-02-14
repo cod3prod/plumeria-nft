@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import ToAddressVerifier from "../to-address-verifier";
 import TokenInputs from "./token-inputs";
 import { useAccount, useReadContract } from "wagmi";
@@ -22,7 +21,7 @@ export default function BatchTransfer() {
   });
 
   const holdings = data
-    ? (data as BigInt[]).map((el: BigInt) => Number(el))
+    ? (data as bigint[]).map((el: bigint) => Number(el))
     : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   const handleAmountChange = (index: number, value: number) => {
