@@ -2,6 +2,7 @@
 
 import { wagmiContractConfig } from "@/configs/contracts";
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useReadContract } from "wagmi";
 
 export default function TotalSupply({
@@ -22,7 +23,9 @@ export default function TotalSupply({
   });
 
   useEffect(() => {
-    if (error) alert(error.shortMessage || error.message);
+    if (error) {
+      toast.error("Error in contract call")
+    };
 
     if (totalSupply === 5000 || error || isPending) {
       setIsFull(true);

@@ -51,7 +51,7 @@ export default function MintBatchForm() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message);
+      toast.error("Error in contract call");
     }
   }, [error]);
 
@@ -94,7 +94,7 @@ export default function MintBatchForm() {
       .some((amount) => amount > 5000);
 
     if (tooMuchMint) {
-      alert("공급량을 초과할 수 없습니다.");
+      toast.error("Too much mint");
       return;
     }
 

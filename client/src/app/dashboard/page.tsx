@@ -31,7 +31,7 @@ export default function Page() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message || "Error in contract call");
+      toast.error("Error in contract call");
     }
   }, [error]);
 

@@ -37,13 +37,13 @@ export default function MintForm() {
   const handleMint = async () => {
     console.log("click");
     if (!address || !tokenId || !amount) {
-      alert("debug");
+      // alert("debug");
       return;
     }
 
     if (chainId !== 11155111) {
       // Sepolia의 체인 ID는 11155111
-      alert("Sepolia 체인을 사용해주세요");
+      toast.error("Please use Sepolia chain");
       return;
     }
     console.log("mint", address, tokenId, amount);
@@ -56,7 +56,7 @@ export default function MintForm() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message);
+      toast.error("Error in contract call");
     }
   }, [error]);
 

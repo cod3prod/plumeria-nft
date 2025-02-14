@@ -31,7 +31,9 @@ export default function BatchTransfer() {
   };
 
   useEffect(() => {
-    toast.error(error?.message);
+    if(error) {
+      toast.error("Error in contract call");
+    }
   }, [error]);
 
   return (

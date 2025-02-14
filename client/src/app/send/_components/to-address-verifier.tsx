@@ -19,13 +19,13 @@ export default function ToAddressVerifier({
 }) {
   const handleVerify = async () => {
     if (!toAddress) {
-      toast("입력해주세요!");
+      toast("Type some address");
       setIsAddressValid(false);
       return;
     }
 
     if (!isValidAddress(toAddress)) {
-      toast.error("잘못된 주소입니다!");
+      toast.error("Wrong Address!");
       setIsAddressValid(false);
       return;
     }
@@ -37,7 +37,7 @@ export default function ToAddressVerifier({
         setIsAddressValid(true);
       } else {
         setIsAddressValid(false);
-        toast.error("ERC-1155 지원하지 않는 주소입니다!");
+        toast.error("This address cannot receive ERC-1155");
       }
     } else {
       setIsAddressValid(true);

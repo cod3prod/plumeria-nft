@@ -20,7 +20,7 @@ export default function Result({
   if (!isOpen) return null;
 
   return (
-    <Modal title="조각을 얻었습니다" onClose={onClose}>
+    <Modal title="Got a piece" onClose={onClose}>
       <div className="relative">
         <Swiper
           className="flex flex-col items-center"
